@@ -3,7 +3,7 @@
 
 ## Exercice 1. Disques et partitions
 
-1. Sur VSphère, on clique droit sur la machine et on fait modifier les paramètres. On ajoute un périphérique, disque dur et on ccoche le type de partitionnement dynamique.
+1. Sur VSphère, on clique droit sur la machine et on fait modifier les paramètres. On ajoute un périphérique, disque dur et on coche le type de partitionnement dynamique.
 
 2. Pour vérifier que le disque dur est bien détecté, on peut lister les disques et donc faire soit :
 - la commande ll /dev/sd* pour voir les droits
@@ -33,4 +33,10 @@ Avec la commande lsblk on voit le nouveau disque de 5 Go tout en bas.
 
 4. On crée un groupe de volume qui pour l'instant ne contient que le volume physique créé à l'étape précédente avec la commande `sudo vgcreate vg00 /dev/sdb1`. En exécutant la commande `sudo vgdisplay`, on voit que le groupe vg00 apparait.
 
-5.
+5. Pour créer un volume logique on exécute la commande `lvcreate -l 100%FREE vg00`. 
+
+7. On éteint la VM et on ajoute un second disque comme précédemment. On répète les étapes des questions 2 et 3, c'est à dire vérifier que le disque est bien détecté par le système et partitionner ce disque en utilisant fdisk : créez une première partition de 2 Go de type Linux (n°83), et une seconde partition de 3 Go en NTFS (n°7)
+On constate qu'avec la commande lsblk un disque sdc de 3Mo est apparu (celui créé juste avant). On répète les étapes de la question 3.
+
+8. On exécute la commande `vgextend vg00 sdc`.
+9. On exécute la commande lvresize pour agrandir le volume logique.
